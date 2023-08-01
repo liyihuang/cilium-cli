@@ -1086,19 +1086,18 @@ func (c *Client) GetHelmState(ctx context.Context, namespace string, secretName 
 }
 
 // GetHelmValues is the function for cilium cli sysdump to collect the helm values from the release directly
-func (c *Client) GetHelmValues(_ context.Context, releaseName string) ([]byte, error) {
+func (c *Client) GetHelmValues(ctx context.Context, releaseName string) (string, error) {
 	client := action.NewGetValues(c.HelmActionConfig)
 	vals, err := client.Run(releaseName)
 	if err != nil {
-		return nil, fmt.Errorf("unable to retrive the helm value from the release %s: %w", releaseName, err)
+		return "", fmt.Errorf("unable to retrive the helm value from the release %s: %w", releaseName, err)
 	}
 
 	valuesBuf := new(bytes.Buffer)
-	encodeErr := output.EncodeYAML(valuesBuf, vals)
-	if encodeErr != nil {
-		return nil, fmt.Errorf("unable to parse from helm values from release %s: %w", releaseName, err)
+	if err = output.EncodeYAML(valuesBuf, vals); err != nil {
+		return "", fmt.Errorf("unable to parse from helm values from release %s: %w", releaseName, err)
 	}
-	return valuesBuf.Bytes(), nil
+	return valuesBuf.String(), nil
 
 }
 

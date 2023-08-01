@@ -1546,7 +1546,7 @@ func (c *Collector) Run() error {
 				if err != nil {
 					return fmt.Errorf("failed to get the helm values from the release: %w", err)
 				}
-				if err := c.WriteBytes(helmValuesFileName, v); err != nil {
+				if err := c.WriteString(helmValuesFileName, v); err != nil {
 					return fmt.Errorf("failed to write the helm values to the file: %w", err)
 				}
 				return nil
