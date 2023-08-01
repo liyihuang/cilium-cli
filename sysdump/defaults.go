@@ -15,9 +15,9 @@ const (
 
 const (
 	DefaultCiliumLabelSelector               = labelPrefix + "cilium"
-	DefaultCiliumEnvoyLabelSelector          = labelPrefix + "cilium-envoy"
-	DefaultCiliumHelmChartName               = defaults.HelmReleaseName
-	DefaultCiliumOperatorLabelSelector       = "io.cilium/app=operator"
+	DefaultCiliumEnvoyLabelSelector    = labelPrefix + "cilium-envoy"
+	DefaultCiliumHelmChartReleaseName  = defaults.HelmReleaseName
+	DefaultCiliumOperatorLabelSelector = "io.cilium/app=operator"
 	DefaultClustermeshApiserverLabelSelector = labelPrefix + "clustermesh-apiserver"
 	DefaultDebug                             = false
 	DefaultProfiling                         = true

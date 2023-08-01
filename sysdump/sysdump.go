@@ -47,7 +47,7 @@ type Options struct {
 	// The labels used to target Cilium Envoy pods.
 	CiliumEnvoyLabelSelector string
 	// The chart name of Cilium Helm release.
-	CiliumHelmChartName string
+	CiliumHelmChartReleaseName string
 	// The labels used to target Cilium Node Init daemon set. Usually, this label is same as CiliumNodeInitLabelSelector.
 	CiliumNodeInitDaemonSetSelector string
 	// The labels used to target Cilium Node Init pods.
@@ -1542,7 +1542,7 @@ func (c *Collector) Run() error {
 			Description:     "Collecting Helm values from the release",
 			Quick:           true,
 			Task: func(ctx context.Context) error {
-				v, err := c.Client.GetHelmValues(ctx, c.Options.CiliumHelmChartName)
+				v, err := c.Client.GetHelmValues(ctx, c.Options.CiliumHelmChartReleaseName)
 				if err != nil {
 					return fmt.Errorf("failed to get the helm values from the release: %w", err)
 				}
